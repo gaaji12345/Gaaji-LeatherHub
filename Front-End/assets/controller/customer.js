@@ -76,3 +76,40 @@ function getNextCustomerCode(){
         }
     });
 }
+
+$('#customerSave').click(function() {
+    // Create a JSON object from the form data
+    var formData = $("#customerForm").serializeArray();
+    var data = {};
+    $(formData).each(function(index, obj) {
+        data[obj.name] = obj.value;
+    });
+
+    console.log(data);
+    console.log('Token:', token);
+
+    $.ajax({
+        url: 'http://localhost:8080/customer', // Make sure this matches your controller endpoint
+        method: "POST",
+        contentType: 'application/json', // Specify content type
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        data: JSON.stringify(data), // Convert data to JSON string
+        success: function(res) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Saved Successfully',
+                text: res
+            });
+        },
+        error: function(ob, txtStatus, error) {
+            alert(txtStatus);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: ob.responseText // Show the error response text
+            });
+        }
+    });
+});
