@@ -1,8 +1,26 @@
 
 var token = localStorage.getItem('token');
 
-
-
+getNextCustomerCode();
+$('#level').change(function(){
+    console.log($(this).val());
+    switch($(this).val()) {
+        case 'GOLD':
+            $('#totalPoints').val('800');
+            break;
+        case 'SILVER':
+            $('#totalPoints').val('600');
+            break;
+        case 'BRONZE':
+            $('#totalPoints').val('400');
+            break;
+        case 'LEGEND':
+            $('#totalPoints').val('2000');
+            break;
+        default:
+            alert('No valid level selected');
+    }
+});
 $('#customergetAll').click(function(){
     getAllCustomers();
 })
@@ -39,6 +57,22 @@ function getAllCustomers() {
                 $("#customerTboady").append(row);
 
             }
+        }
+    });
+}
+
+function getNextCustomerCode(){
+    $.ajax({
+        url:'http://localhost:8080/customer/nextId',
+        method:'GET',
+        contentType: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+
+        success: function(resp){
+            console.log(resp);
+            $('#customerCode').val(resp)
         }
     });
 }
