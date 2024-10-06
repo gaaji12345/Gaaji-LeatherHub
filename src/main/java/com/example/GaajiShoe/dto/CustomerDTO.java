@@ -31,7 +31,7 @@ public class CustomerDTO {
     private String address_line_05;
     private String contactNo;
     private String email;
-    private Date recent_purchase_date_time;
+    private Date recentPurchaseDateTime;
 
 
 

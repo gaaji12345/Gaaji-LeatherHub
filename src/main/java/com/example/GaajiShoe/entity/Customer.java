@@ -38,9 +38,11 @@ public class Customer {
     private String address_line_04;
     private String address_line_05;
 
-    private String contact_nmb;
+    @Column(name = "contact_no")
+    private String contactNo;
     private String email;
-    private Date recent_purchase_date_time;
+    @Column(name = "recent_purchase_date_time")
+    private Date recentPurchaseDateTime;
 
 
 }

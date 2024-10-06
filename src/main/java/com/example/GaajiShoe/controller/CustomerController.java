@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,13 +31,28 @@ public class CustomerController {
     }
 
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = {})
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAuthority('ADMIN')")
     CustomerDTO saveCustomer(@Valid @RequestBody CustomerDTO customerDTO){
         return customerService.saveCustomer(customerDTO);
     }
 
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public ResponseEntity<Void> saveCustomer(@Valid @RequestBody CustomerDTO dto) {
+//        // System.out.println("Received customer data: " + dto.toString());
+//        customerService.saveCustomer(dto);
+//        return ResponseEntity.ok().build();
+//    }
+
+//    @PostMapping
+//    public ResponceUtil saveCustomer(@RequestBody CustomerDTO c){
+////        customerService.saveCustomer(c);
+////        return new ResponceUtil(200,"OK",null);
+//        customerService.saveCustomer(c);
+//        return new ResponceUtil(200, "successfully added", c);
+//    }
 
     @PutMapping()
     public  ResponceUtil  updateCustomer(@RequestBody CustomerDTO c){
@@ -53,12 +69,17 @@ public class CustomerController {
 
     }
 
-
     @GetMapping(path = "/{id}")
     public ResponceUtil  searchCustomer(@PathVariable("id") String id){
 
         return new ResponceUtil(200,"OK", customerService.searchCustomer(id));
 
 
+    }
+
+    @GetMapping("/nextId")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    String getNextEmployeeCode(){
+        return customerService.genarateNextCustomerCode();
     }
 }
