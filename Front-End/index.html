@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/normalize/normalize.css">
     <link rel="stylesheet" href="assets/style/login.css">
-<!--    <link rel="stylesheet" href="assets/style/dasboard.css">-->
-    <link rel="stylesheet" href="assets/style/test.css">
+    <link rel="stylesheet" href="assets/style/customer.css">
+    <link rel="stylesheet" href="assets/style/dasboard.css">
+<!--    <link rel="stylesheet" href="assets/style/test.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -127,7 +128,7 @@
                  alt="">
             <div class="dp">
                 <img src=
-                             "assects/images/baldwin4.jpg"
+                             "assets/images/baldwin4.jpg"
                      class="dpicn"
                      alt="dp">
             </div>
@@ -136,97 +137,201 @@
     </header>
 
 
-    <div class="d-flex" >
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h4>Admin Dashboard</h4>
-            <button class="btn btn-custom-primary">
-                <i class="fas fa-tachometer-alt"></i> Dashboard
-            </button>
-            <button class="btn btn-custom-secondary" id="userbtn">
-                <i class="fas fa-users"></i> Users
-            </button>
-            <button class="btn btn-custom-success">
-                <i class="fas fa-chart-line"></i> Analytics
-            </button>
-            <button class="btn btn-custom-danger">
-                <i class="fas fa-cogs"></i> Settings
-            </button>
-            <button class="btn btn-custom-warning">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </button>
-        </div>
-
-
-
-        <!-- Main Content -->
-        <div class="content flex-grow-1">
-            <div class="container">
-                <h2 class="mt-4">Dashboard</h2>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card text-white bg-primary mb-3">
-                            <div class="card-header">Total Products</div>
-                            <div class="card-body">
-                                <h5 class="card-title">150</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card text-white bg-success mb-3">
-                            <div class="card-header">Total Orders</div>
-                            <div class="card-body">
-                                <h5 class="card-title">85</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card text-white bg-warning mb-3">
-                            <div class="card-header">Total Customers</div>
-                            <div class="card-body">
-                                <h5 class="card-title">200</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <h4 class="mt-4">Recent Orders</h4>
-                <table class="table table-bordered mt-2">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Customer</th>
-                        <th>Product</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>Nike Air Max</td>
-                        <td><span class="badge badge-success">Completed</span></td>
-                        <td><button class="btn btn-info btn-sm">View</button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane Smith</td>
-                        <td>Adidas Ultraboost</td>
-                        <td><span class="badge badge-warning">Pending</span></td>
-                        <td><button class="btn btn-info btn-sm">View</button></td>
-                    </tr>
-                    <!-- Add more rows as needed -->
-                    </tbody>
-                </table>
+    <div class="container" id="maindash">
+        <h2 class="text-center my-4">Dashboard</h2>
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-3 icon-container">
+                <a href="page1.html" class="icon-box">
+                    <i class="fas fa-home icon"></i>
+                    <div class="home">Home</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3 icon-container">
+                <a  class="icon-box">
+                    <i class="fa-solid fa-users icon"  id="userbtn"></i>
+                    <div class="home">Customers</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3 icon-container">
+                <a href="page3.html" class="icon-box">
+                    <i class="fas fa-cog icon"></i>
+                    <div class="home" >Settings</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3 icon-container">
+                <a href="page4.html" class="icon-box">
+                    <i class="fas fa-envelope icon"></i>
+                    <div class="home">Messages</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3 icon-container">
+                <a href="page5.html" class="icon-box">
+                    <i class="fas fa-chart-line icon"></i>
+                    <div class="home">Analytics</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3 icon-container">
+                <a href="page6.html" class="icon-box">
+                    <i class="fas fa-bell icon"></i>
+                    <div class="home">Notifications</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3 icon-container">
+                <a href="page7.html" class="icon-box">
+                    <i class="fas fa-question-circle icon"></i>
+                    <div class="home">Help</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3 icon-container">
+                <a href="page8.html" class="icon-box">
+                    <i class="fas fa-sign-out-alt icon"></i>
+                    <div class="home">Logout</div>
+                </a>
             </div>
         </div>
-
-
     </div>
 
 
 </section>
 
+
+
+<section id="maincustomer" style="display: none">
+    <div class="container mt-5 mb-5">
+        <h2 class="text-center mb-4">Customer Information</h2>
+        <form id="customerForm">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="customerCode">Customer Code</label>
+                    <input type="text" class="form-control" id="customerCode" placeholder="Enter customer code" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="customerName">Customer Name</label>
+                    <input type="text" class="form-control" id="customerName"  name="customerName" placeholder="Enter customer name" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="gender">Gender</label>
+                    <select id="gender" class="form-control" name="gender">
+                        <option value="" disabled selected>Choose...</option>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="joinDate">Join Date</label>
+                    <input type="date" class="form-control" name="joinDate" id="joinDate" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="level">Level</label>
+                    <select id="level" class="form-control" name="level">
+                        <option selected>Choose...</option>
+                        <option value="GOLD">GOLD</option>
+                        <option value="SILVER">SILVER</option>
+                        <option value="BRONZE">BRONZE</option>
+                        <option value="LEGEND">LEGEND</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="totalPoints">Total Points</label>
+                    <input type="number" class="form-control" id="totalPoints" name="totalPoints" placeholder="Enter total points" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" class="form-control" id="dob" name="dob" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="contactNo">Contact No</label>
+                    <input type="tel" class="form-control" id="contactNo" name="contactNo" placeholder="Enter contact number" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+                </div>
+            </div>
+            <h5 class="mt-4">Address</h5>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="address_line_01">Address Line 1</label>
+                    <input type="text" class="form-control" id="address_line_01" name="address_line_01" placeholder="Enter address line 1" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="address_line_02">Address Line 2</label>
+                    <input type="text" class="form-control" id="address_line_02" name="address_line_02" placeholder="Enter address line 2">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="address_line_03">Address Line 3</label>
+                    <input type="text" class="form-control" id="address_line_03" name="address_line_03" placeholder="Enter address line 3">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="address_line_04">Address Line 4</label>
+                    <input type="text" class="form-control" id="address_line_04" name="address_line_04"  placeholder="Enter address line 4">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="address_line_05">Address Line 5</label>
+                    <input type="text" class="form-control" id="address_line_05" name="address_line_05" placeholder="Enter address line 5">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="recent_purchase_date_time">Recent Purchase Date & Time</label>
+                    <input type="date" class="form-control" id="recent_purchase_date_time" name="recentPurchaseDateTime" required>
+
+                </div>
+
+            </div>
+            <button type="button" class="btn btn-outline-primary" id="customerSave">SAVE</button>
+            <button type="button" class="btn btn-outline-secondary">UPDATE</button>
+            <button type="button" class="btn btn-outline-danger">DELETE</button>
+            <button type="button" class="btn btn-outline-info" id="customergetAll">GET-ALL</button>
+            <button type="button" class="btn btn-outline-dark">CLEAR-ALL</button>
+        </form>
+
+        <div class="container mt-4">
+            <div class="table-responsive">
+                <table id="customerTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Join_Date</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Points</th>
+                        <th scope="col">Date_of_Birth</th>
+                        <th scope="col">Building_No</th>
+                        <th scope="col">Lane</th>
+                        <th scope="col">City</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Contact_Number</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Recent_Purchase_Date</th>
+                    </tr>
+                    </thead>
+                    <tbody id="customerTboady">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!---user dashboard-->
 
@@ -282,6 +387,7 @@
 
 <script src="assets/controller/login.js"></script>
 <script src="assets/controller/dashboard.js"></script>
+<script src="assets/controller/customer.js"></script>
 
 
 
