@@ -1,0 +1,72 @@
+.container {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+h2 {
+    color: #343a40;
+}
+
+h5 {
+    color: #6c757d;
+}
+
+.form-control {
+    border-radius: 0.25rem;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* Table styling */
+table {
+    margin-top: 20px;
+}
+
+th, td {
+    text-align: center;
+}
+
+#customerTable {
+    width: 100%;
+    border-collapse: collapse; /* Ensure borders do not double up */
+}
+
+#customerTable th {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* Text color */
+    border: 1px solid #dee2e6; /* Border color */
+}
+
+#customerTable td, #customerTable th {
+    padding: 15px; /* Padding for cells */
+    text-align: left; /* Left align text */
+}
+
+#customerTable tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Light grey background for even rows */
+}
+
+#customerTable tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+
