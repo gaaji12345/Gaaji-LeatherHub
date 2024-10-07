@@ -171,5 +171,38 @@ function extractDate(dateStr) {
     return ''; // Return an empty string if dateStr is undefined or empty
 }
 
+$('#deleteCustomer').click(function (){
+    // $('#tbCustomer').empty();
+    let customerID = $("#customerCode").val();
+    $.ajax({
+        url:"http://localhost:8080/customer?customerCode="+customerID,
+        method:"DELETE",
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        // data:data ,
+        success:function (res) {
+            console.log(res)
+        getAllCustomers();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Delete Successfully',
+                    text: res
+                });
+
+
+        },
+        error:function (ob,status,t){
+            console.log(ob);
+            console.log(status);
+            console.log(t);
+
+        }
+    })
+});
+
+
+
 
 
