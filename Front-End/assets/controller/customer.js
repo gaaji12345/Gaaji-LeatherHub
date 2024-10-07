@@ -1,7 +1,10 @@
 
 var token = localStorage.getItem('token');
 
+
+
 getNextCustomerCode();
+btnRowClick();
 $('#level').change(function(){
     console.log($(this).val());
     switch($(this).val()) {
@@ -58,7 +61,9 @@ function getAllCustomers() {
 
             }
         }
+
     });
+    btnRowClick();
 }
 
 function getNextCustomerCode(){
@@ -113,3 +118,58 @@ $('#customerSave').click(function() {
         }
     });
 });
+
+
+
+function btnRowClick() {
+    $('#customerTable').on('click', 'tr', function() {
+        // Your existing code here
+        let id=$(this).children(":eq(0)").text();
+        let name=$(this).children(":eq(1)").text();
+        let gender=$(this).children(":eq(2)").text();
+        let joindate=$(this).children(":eq(3)").text();
+        let level=$(this).children(":eq(4)").text();
+        let totp=$(this).children(":eq(5)").text();
+        let dob=$(this).children(":eq(6)").text();
+        let ad1=$(this).children(":eq(7)").text();
+        let ad2=$(this).children(":eq(8)").text();
+        let ad3=$(this).children(":eq(9)").text();
+        let ad4=$(this).children(":eq(10)").text();
+        let ad5=$(this).children(":eq(11)").text();
+        let nmb=$(this).children(":eq(12)").text();
+        let email=$(this).children(":eq(13)").text();
+        let pdate=$(this).children(":eq(14)").text();
+
+
+        // console.log(id,name,address,contact);
+
+        $('#customerCode').val(id);
+        $('#customerName').val(name);
+        $('#gender').val(gender);
+        $('#joinDate').val(extractDate(joindate));
+        $('#level').val(level);
+        $('#totalPoints').val(totp);
+        $('#dob').val(extractDate(dob));
+        $('#address_line_01').val(ad1);
+        $('#address_line_02').val(ad2);
+        $('#address_line_03').val(ad3);
+        $('#address_line_04').val(ad4);
+        $('#address_line_05').val(ad5);
+        $('#contactNo').val(nmb);
+        $('#email').val(email);
+        $('#recent_purchase_date_time').val(extractDate(pdate));
+    });
+}
+
+
+function extractDate(dateStr) {
+    // Check if the input is in the correct format
+    if (dateStr) {
+        // Split at "T" and take the first part
+        return dateStr.split('T')[0];
+    }
+    return ''; // Return an empty string if dateStr is undefined or empty
+}
+
+
+
