@@ -1,10 +1,17 @@
 
 var token = localStorage.getItem('token');
 
+$(document).ready(function() {
+
+    getAllCustomers();
+
+
+});
 
 
 getNextCustomerCode();
 btnRowClick();
+
 $('#level').change(function(){
     console.log($(this).val());
     switch($(this).val()) {
@@ -30,7 +37,7 @@ $('#customergetAll').click(function(){
 function getAllCustomers() {
 
 
-    // $("#customerTable").empty();
+    $("#customerTboady").empty();
     $.ajax({
         url: "http://localhost:8080/customer",
         method: "GET",
@@ -107,6 +114,8 @@ $('#customerSave').click(function() {
                 title: 'Saved Successfully',
                 text: res
             });
+            getAllCustomers();
+            clearFeilds();
         },
         error: function(ob, txtStatus, error) {
             alert(txtStatus);
@@ -184,6 +193,7 @@ $('#deleteCustomer').click(function (){
         success:function (res) {
             console.log(res)
         getAllCustomers();
+            clearFeilds();
 
                 Swal.fire({
                     icon: 'success',
@@ -203,6 +213,61 @@ $('#deleteCustomer').click(function (){
 });
 
 
+$('#customerUpdate').click(function (){
+    updateCustomer();
+})
+
+function updateCustomer(){
+    var cusOb={
+        customerCode: $('#customerCode').val(),
+        customerName:$('#customerName').val(),
+         gender: $('#gender').val(),
+        joinDate:$('#joinDate').val(),
+        level:$('#level').val(),
+       totalPoints: $('#totalPoints').val(),
+       dob: $('#dob').val(),
+        address_line_01 : $('#address_line_01').val(),
+        address_line_02:  $('#address_line_02').val(),
+        address_line_03: $('#address_line_03').val(),
+        address_line_04: $('#address_line_04').val(),
+        address_line_05: $('#address_line_05').val(),
+        contactNo: $('#contactNo').val(),
+       email: $('#email').val(),
+        recent_purchase_date_time: $('#recent_purchase_date_time').val()
+
+    }
+
+    $.ajax({
+        url:'http://localhost:8080/customer',
+        method:"PUT",
+        contentType:"application/json",//request contetnt type json
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+
+        data:JSON.stringify(cusOb),
+        success:function (res){
+
+         getAllCustomers();
+            Swal.fire({
+                icon: 'success',
+                title: 'Update Successfully',
+                text: res
+            });
+            clearFeilds();
+
+        },
+        error:function (ob,txtStatus,error){
+            alert(txtStatus);
+            console.log(ob.responseText)
+        }
+    })
+
+}
 
 
-
+function clearFeilds() {
+    $("#customerCode,#customerName,#gender,#joinDate,#level,#totalPoints,#dob,#address_line_01,#address_line_02,#address_line_03,#address_line_04,#address_line_05,#contactNo,#email,#recent_purchase_date_time").val("");
+    getNextCustomerCode();
+    $('#customerCode').focus();
+}
