@@ -1,0 +1,100 @@
+
+.icon-container {
+    text-align: center;
+    margin: 20px 0;
+}
+.icon-box {
+    padding: 30px;
+    /*border: 4px solid #007bff;*/
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    /*background-color: #f8f9fa; !* Light background for contrast *!*/
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Inherit color for text */
+}
+.icon-box:hover {
+    transform: scale(1.1);
+    /*box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);*/
+}
+.icon {
+    font-size: 60px; /* Increased icon size */
+    /*color: #007bff; !* Icon color *!*/
+    margin-bottom: 15px;
+}
+h2 {
+    color: #343a40; /* Darker title color */
+}
+.home{
+    margin-left: 20px;
+}
+
+
+/* Header styles */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #343a40; /* Dark background for header */
+    color: #ffffff; /* White text for header */
+    padding: 10px 20px;
+}
+
+.logosec {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.searchbar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+}
+
+.searchbar input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+}
+
+.searchbtn {
+    margin-left: 5px;
+}
+
+.icn {
+    width: 20px;
+}
+
+/* Message section */
+.message {
+    display: flex;
+    align-items: center;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    background-color: #28a745; /* Green for notifications */
+    border-radius: 50%;
+    position: relative;
+    top: -10px;
+    margin-right: 10px;
+}
+
+.dp {
+    margin-left: 15px;
+}
+
+.dpicn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ffffff; /* White border around profile pic */
+}

@@ -1,0 +1,144 @@
+/* General styles for the dashboard */
+body {
+    background-color: #f8f9fa; /* Light background for the body */
+    /*overflow: hidden;*/
+}
+
+/* Header styles */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #343a40; /* Dark background for header */
+    color: #ffffff; /* White text for header */
+    padding: 10px 20px;
+}
+
+.logosec {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.searchbar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+}
+
+.searchbar input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+}
+
+.searchbtn {
+    margin-left: 5px;
+}
+
+.icn {
+    width: 20px;
+}
+
+/* Message section */
+.message {
+    display: flex;
+    align-items: center;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    background-color: #28a745; /* Green for notifications */
+    border-radius: 50%;
+    position: relative;
+    top: -10px;
+    margin-right: 10px;
+}
+
+.dp {
+    margin-left: 15px;
+}
+
+.dpicn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ffffff; /* White border around profile pic */
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: #343a40; /* Dark sidebar */
+    color: #ffffff; /* White text */
+    padding: 20px;
+}
+
+.sidebar h4 {
+    color: #ffd700; /* Gold color for sidebar title */
+    margin-bottom: 20px;
+}
+
+.sidebar .btn {
+    width: 100%; /* Full width buttons */
+    margin-bottom: 10px;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.btn-custom-primary {
+    background-color: #007bff; /* Bootstrap primary */
+}
+
+.btn-custom-secondary {
+    background-color: #6c757d; /* Bootstrap secondary */
+}
+
+.btn-custom-success {
+    background-color: #28a745; /* Bootstrap success */
+}
+
+.btn-custom-danger {
+    background-color: #dc3545; /* Bootstrap danger */
+}
+
+.btn-custom-warning {
+    background-color: #ffc107; /* Bootstrap warning */
+}
+
+/* Content styles */
+.content {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.card {
+    border-radius: 10px; /* Rounded corners for cards */
+}
+
+/* Table styles */
+.table {
+    margin-top: 20px;
+}
+
+.table th {
+    background-color: #343a40; /* Dark background for table header */
+    color: #ffffff; /* White text for table header */
+}
+
+.badge-success {
+    background-color: #28a745; /* Green for completed */
+}
+
+.badge-warning {
+    background-color: #ffc107; /* Yellow for pending */
+}
