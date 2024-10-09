@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="assets/style/login.css">
     <link rel="stylesheet" href="assets/style/customer.css">
     <link rel="stylesheet" href="assets/style/dasboard.css">
-<!--    <link rel="stylesheet" href="assets/style/test.css">-->
+    <link rel="stylesheet" href="assets/style/employee.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -23,7 +23,6 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
 
     </style>
 </head>
@@ -153,9 +152,9 @@
                 </a>
             </div>
             <div class="col-6 col-md-3 icon-container">
-                <a href="page3.html" class="icon-box">
-                    <i class="fas fa-cog icon"></i>
-                    <div class="home" >Settings</div>
+                <a  class="icon-box">
+                    <i class="fas fa-cog icon" id="employeebtn"></i>
+                    <div class="home" >Employee</div>
                 </a>
             </div>
             <div class="col-6 col-md-3 icon-container">
@@ -334,6 +333,152 @@
     </div>
 </section>
 
+
+<section id="mainEmployee" style="display: none">
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Create Employee</h2>
+        <form id="employeeForm" class="bg-light p-4 rounded shadow">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="file">Profile Picture</label>
+                    <input type="file" class="form-control" id="file" name="file" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="employeeName">Employee Name</label>
+                    <input type="text" class="form-control form-control-sm" id="employeeName" name="employeeName" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control form-control-sm" id="genderem" name="gender" required>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="status">Status</label>
+                    <input type="text" class="form-control form-control-sm" id="status" name="status" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="designation">Designation</label>
+                    <input type="text" class="form-control form-control-sm" id="designation" name="designation" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="role">Role</label>
+                <input type="text" class="form-control form-control-sm" id="role" name="role" required>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" class="form-control form-control-sm" id="dobem" name="dob" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="dateOfJoin">Date of Joining</label>
+                    <input type="date" class="form-control form-control-sm" id="dateOfJoin" name="dateOfJoin" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="attachedBranch">Attached Branch</label>
+                <input type="text" class="form-control form-control-sm" id="attachedBranch" name="attachedBranch" required>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="addressLine01">Address Line 1</label>
+                    <input type="text" class="form-control" id="addressLine01" name="addressLine01" required>      </div>
+                <div class="form-group col-md-6">
+                    <label for="addressLine02">Address Line 2</label>
+                    <input type="text" class="form-control" id="addressLine02" name="addressLine02" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="addressLine03">Address Line 3</label>
+                    <input type="text" class="form-control" id="addressLine03" name="addressLine03" required>      </div>
+                <div class="form-group col-md-6">
+                    <label for="addressLine04">Address Line 4</label>
+                    <input type="text" class="form-control" id="addressLine04" name="addressLine04" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="addressLine05">Address Line 5</label>
+                <input type="text" class="form-control" id="addressLine05" name="addressLine05" required>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="contactNo">Contact No</label>
+                    <input type="text" class="form-control form-control-sm" id="contactNoem" name="contactNo" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control form-control-sm" id="emailem" name="email" required>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="emergencyContact">Emergency Contact</label>
+                <input type="text" class="form-control form-control-sm" id="emergencyContact" name="emergencyContact" required>
+            </div>
+            <div class="form-group">
+                <label for="emergencyContactPerson">Emergency Contact Person</label>
+                <input type="text" class="form-control form-control-sm" id="emergencyContactPerson" name="emergencyContactPerson" required>
+            </div>
+
+            <button type="button" class="btn btn-outline-primary" id="employeeSave">SAVE</button>
+            <button type="button" class="btn btn-outline-secondary" id="employeeUpdate">UPDATE</button>
+            <button type="button" class="btn btn-outline-danger" id="deleteEmployee">DELETE</button>
+            <button type="button" class="btn btn-outline-info" id="getAllEmployee">GET-ALL</button>
+            <button type="button" class="btn btn-outline-dark">CLEAR-ALL</button>
+        </form>
+        <div class="container mt-4">
+            <div class="table-responsive">
+                <table id="employeeTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Pic</th>
+                        <th scope="col">gender</th>
+                        <th scope="col">STATUS</th>
+                        <th scope="col">DESIGNATION</th>
+                        <th scope="col">ROLE</th>
+                        <th scope="col">DOB</th>
+                        <th scope="col">BRANCH</th>
+                        <th scope="col">addressLine01</th>
+                        <th scope="col">addressLine02</th>
+                        <th scope="col">addressLine03</th>
+                        <th scope="col">addressLine04</th>
+                        <th scope="col">addressLine05</th>
+                        <th scope="col">CONACT-NMB</th>
+                        <th scope="col">EMAIL</th>
+                        <th scope="col">EMARANCY-CONATCT</th>
+                        <th scope="col">EMARANCY-MAN</th>
+
+                    </tr>
+                    </thead>
+                    <tbody id="employeeTboady">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="responseMessage" class="mt-3"></div>
+    </div>
+</section>
+
+
+
+
 <!---user dashboard-->
 
 <section id="userdashboard">
@@ -389,6 +534,7 @@
 <script src="assets/controller/login.js"></script>
 <script src="assets/controller/dashboard.js"></script>
 <script src="assets/controller/customer.js"></script>
+<script src="assets/controller/employee.js"></script>
 
 
 
