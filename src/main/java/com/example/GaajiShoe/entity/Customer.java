@@ -37,7 +37,6 @@ public class Customer {
     private String address_line_03;
     private String address_line_04;
     private String address_line_05;
-
     @Column(name = "contact_no")
     private String contactNo;
     private String email;
