@@ -3,4 +3,9 @@ $('#userbtn').click(function (){
     $("#maincustomer").show();
 });
 
+$('#employeebtn').click(function (){
+    $('#maindash').hide();
+    $("#mainEmployee").show();
+});
+
 
