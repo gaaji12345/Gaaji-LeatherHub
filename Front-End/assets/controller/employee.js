@@ -49,7 +49,7 @@ function getAllEmployee() {
             console.error('Error loading employees:', error);
         }
     });
-    // btnRowClick(); // Assuming this function is defined elsewhere
+     btnRowClickem(); // Assuming this function is defined elsewhere
 }
 
 $('#employeeForm').on('submit', function(e) {
@@ -83,5 +83,58 @@ $('#employeeForm').on('submit', function(e) {
         }
     });
 });
+
+function btnRowClickem() {
+    $('#employeeTable').on('click', 'tr', function() {
+        var cells = $(this).children('td');
+
+        // Assuming the columns are in the same order as your form fields
+        $('#employeeName').val(cells.eq(0).text()); // Name
+        $('#genderem').val(cells.eq(2).text()); // Gender
+        $('#status').val(cells.eq(3).text()); // Status
+        $('#designation').val(cells.eq(4).text()); // Designation
+        $('#role').val(cells.eq(5).text()); // Role
+        $('#dobem').val(convertDateFormat(cells.eq(6).text())); // DOB
+        $('#dateOfJoin').val(convertDateFormat(cells.eq(7).text())); // Date of Joining
+        $('#attachedBranch').val(cells.eq(8).text()); // Attached Branch
+        $('#addressLine01').val(cells.eq(9).text()); // Address Line 1
+        $('#addressLine02').val(cells.eq(10).text()); // Address Line 2
+        $('#addressLine03').val(cells.eq(11).text()); // Address Line 3
+        $('#addressLine04').val(cells.eq(12).text()); // Address Line 4
+        $('#addressLine05').val(cells.eq(13).text()); // Address Line 5
+        $('#contactNoem').val(cells.eq(14).text()); // Contact No
+        $('#emailem').val(cells.eq(15).text()); // Email
+        $('#emergencyContact').val(cells.eq(16).text()); // Emergency Contact
+        $('#emergencyContactPerson').val(cells.eq(17).text()); // Emergency Contact Person
+
+        // Optionally show the form if it’s hidden
+        $('#mainEmployee').show();
+    });
+}
+
+function convertDateFormat(dateStr) {
+    // Check if the input is in dd/MM/yyyy format
+    if (dateStr) {
+        const parts = dateStr.split('/');
+        if (parts.length === 3) {
+            const day = parts[0];
+            const month = String(parts[1]).padStart(2, '0'); // Ensure two digits
+            const year = parts[2];
+
+            // Return in yyyy-MM-dd format
+            return `${year}-${month}-${day}`;
+        }
+    }
+    return ''; // Return an empty string if dateStr is undefined or empty
+}
+
+
+
+
+
+
+
+
+
 
 
