@@ -137,24 +137,38 @@ public class EmployeeController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping()
-    public ResponceUtil deleteEmployee(@RequestParam("employeeCode") String employeeCode) {
-        employeeService.deleteEmployee(employeeCode);
-        return new ResponceUtil(200,"Deleted",null);
+//    @DeleteMapping()
+//    public ResponceUtil deleteEmployee(@RequestParam("employeeCode") String employeeCode) {
+//        employeeService.deleteEmployee(employeeCode);
+//        return new ResponceUtil(200,"Deleted",null);
+//
+//    }
 
+    @DeleteMapping
+    public ResponceUtil deleteEmployee(@RequestParam("employeeCode") String employeeCode) {
+        System.out.println("Deleting employee with code: " + employeeCode);
+        employeeService.deleteEmployee(employeeCode);
+        return new ResponceUtil(200, "Deleted", null);
     }
 
 
-    @PutMapping("/{employeeCode}")
-    public ResponseEntity<EmployeeDTO> updateEmployee(
-            @PathVariable String employeeCode,
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("employee") EmployeeDTO updatedEmployeeDTO) throws IOException {
 
-        updatedEmployeeDTO.setEmpPic(Arrays.toString(file.getBytes())); // Handle file properly
+    @PutMapping()
+    public ResponseEntity<EmployeeDTO> updateEmployee(
+            @PathVariable("employeeCode") String employeeCode,
+            @RequestParam("file") MultipartFile file,
+            @ModelAttribute EmployeeDTO updatedEmployeeDTO) throws IOException {
+
+        // Handle the file
+        if (file != null && !file.isEmpty()) {
+            updatedEmployeeDTO.setEmpPic(Arrays.toString(file.getBytes())); // Store file bytes
+        }
+
+        // Update employee
         EmployeeDTO updatedEmp = employeeService.updateEmployee(employeeCode, updatedEmployeeDTO);
         return updatedEmp != null ? ResponseEntity.ok(updatedEmp) : ResponseEntity.notFound().build();
     }
+
 
 }
 

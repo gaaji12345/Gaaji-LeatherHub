@@ -12,6 +12,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -27,7 +28,9 @@ public class EmployeeDTO {
     private String status;
     private String designation;
     private UserRole role;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfJoin;
     private String attachedBranch;
     private String addressLine01;

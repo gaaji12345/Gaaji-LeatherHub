@@ -73,6 +73,7 @@ $('#employeeForm').on('submit', function(e) {
                 text: response
             });
             getAllEmployee();
+            clearFeildsem();
         },
         error: function(xhr, status, error) {
             Swal.fire({
@@ -127,6 +128,175 @@ function convertDateFormat(dateStr) {
     }
     return ''; // Return an empty string if dateStr is undefined or empty
 }
+
+
+function populateEmployeeTable(data) {
+    const tableBody = $('#employeeTboady');
+    tableBody.empty(); // Clear existing rows
+
+    data.forEach(employee => {
+        const row = `<tr data-code="${employee.code}">` + // Store employee code in data attribute
+            `<td>${employee.code}</td>` +
+            `<td>${employee.employeeName}</td>` +
+            `<td>${employee.pic}</td>` + // Adjust as needed
+            `<td>${employee.gender}</td>` +
+            `<td>${employee.status}</td>` +
+            `<td>${employee.designation}</td>` +
+            `<td>${employee.role}</td>` +
+            `<td>${employee.dob}</td>` +
+            `<td>${employee.dateOfJoin}</td>` +
+            `<td>${employee.attachedBranch}</td>` +
+            `<td>${employee.addressLine01}</td>` +
+            `<td>${employee.addressLine02}</td>` +
+            `<td>${employee.addressLine03}</td>` +
+            `<td>${employee.addressLine04}</td>` +
+            `<td>${employee.addressLine05}</td>` +
+            `<td>${employee.contactNo}</td>` +
+            `<td>${employee.email}</td>` +
+            `<td>${employee.emergencyContact}</td>` +
+            `<td>${employee.emergencyContactPerson}</td>` +
+            `</tr>`;
+        tableBody.append(row);
+    });
+}
+
+$(document).ready(function() {
+    // Handle delete button click
+    $('#deleteEmployee').on('click', function() {
+        // Get the selected employee's row
+        const selectedRow = $('#employeeTable tbody tr.selected');
+
+        if (selectedRow.length === 0) {
+            alert('Please select an employee to delete.');
+            return;
+        }
+
+        // Retrieve employeeCode from the data attribute
+        const employeeCode = selectedRow.data('code');
+
+        // Confirmation before deletion
+        if (confirm('Are you sure you want to delete this employee?')) {
+            $.ajax({
+                url: `http://localhost:8080/employee?employeeCode=${employeeCode}`, // Update URL with query parameter
+                type: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + token // Ensure token is defined
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Delete Successfully',
+                        text: response
+                    });
+                    getAllEmployee();
+                    clearFeildsem();
+                },
+                error: function(xhr, status, error) {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Can delete',
+                        text: error
+                    });
+                }
+            });
+        }
+    });
+
+    // Function to handle row selection (add selected class)
+    $('#employeeTable tbody').on('click', 'tr', function() {
+        $('#employeeTable tbody tr').removeClass('selected'); // Remove 'selected' class from all rows
+        $(this).addClass('selected'); // Add 'selected' class to the clicked row
+    });
+
+    // Example function to get all employees (optional for refreshing the list)
+    function getAllEmployees() {
+        $.ajax({
+            url: 'http://localhost:8080/employee', // Adjust this URL as per your API
+            type: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token // Ensure token is defined
+            },
+            success: function(data) {
+                populateEmployeeTable(data); // Call the function to populate the table
+            },
+            error: function(xhr, status, error) {
+                alert('Error fetching employees: ' + error);
+            }
+        });
+    }
+});
+
+
+$(document).ready(function() {
+    $('#employeeUpdate').on('click', function() {
+        const selectedRow = $('#employeeTable tbody tr.selected');
+
+        if (selectedRow.length === 0) {
+            alert('Please select an employee to update.');
+            return;
+        }
+
+        const employeeCode = selectedRow.data('employeeCode');
+
+        const formData = new FormData();
+        const fileInput = $('#file')[0].files[0];
+        if (!fileInput) {
+            alert('Please select a file to upload.');
+            return;
+        }
+        formData.append('file', fileInput);
+
+        // Append each property separately
+        formData.append('employeeName', $('#employeeName').val());
+        formData.append('gender', $('#genderem').val());
+        formData.append('status', $('#status').val());
+        formData.append('designation', $('#designation').val());
+        formData.append('role', $('#role').val());
+        formData.append('dob', $('#dobem').val());
+        formData.append('dateOfJoin', $('#dateOfJoin').val());
+        formData.append('attachedBranch', $('#attachedBranch').val());
+        formData.append('addressLine01', $('#addressLine01').val());
+        formData.append('addressLine02', $('#addressLine02').val());
+        formData.append('addressLine03', $('#addressLine03').val());
+        formData.append('addressLine04', $('#addressLine04').val());
+        formData.append('addressLine05', $('#addressLine05').val());
+        formData.append('contactNo', $('#contactNoem').val());
+        formData.append('email', $('#emailem').val());
+        formData.append('emergencyContact', $('#emergencyContact').val());
+        formData.append('emergencyContactPerson', $('#emergencyContactPerson').val());
+
+        $.ajax({
+            url: `http://localhost:8080/employee/${employeeCode}`,
+            type: 'PUT',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'Authorization': 'Bearer ' + token // Ensure token is defined
+            },
+            success: function(response) {
+                alert('Employee updated successfully!');
+                // Optionally refresh the employee table
+                // getAllEmployees(); // Uncomment if needed
+            },
+            error: function(xhr, status, error) {
+                // console.error('Error details:', xhr.responseText);
+                // alert('Error updating employee: ' + xhr.status + ' - ' + error);
+            }
+        });
+    });
+});
+
+
+function clearFeildsem() {
+    $("#file,#employeeName,#genderem,#status,#designation,#role,#dobem,#dateOfJoin,#attachedBranch,#addressLine01,#addressLine02,#addressLine03,#addressLine04,#addressLine05,#contactNoem,#emailem,#emergencyContact,#emergencyContactPerson").val("");
+    $('#file').focus();
+}
+
+
+
+
 
 
 
