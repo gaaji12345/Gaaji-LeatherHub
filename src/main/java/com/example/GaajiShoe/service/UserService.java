@@ -14,5 +14,8 @@ public interface UserService {
     Responce loginUser(LoginRequest loginRequest);
     Responce getAllUsers();
     User getLoginUser();
+    public Responce deleteUser(Long id);
+
+//    public void deleteUser(String email);
 
 }
