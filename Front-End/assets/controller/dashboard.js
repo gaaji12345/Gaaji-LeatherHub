@@ -9,3 +9,8 @@ $('#employeebtn').click(function (){
 });
 
 
+$('#userbtn2').click(function (){
+    $('#maindash').hide();
+    $("#user").show();
+});
+
