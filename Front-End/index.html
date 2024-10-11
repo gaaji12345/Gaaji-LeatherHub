@@ -176,9 +176,9 @@
                 </a>
             </div>
             <div class="col-6 col-md-3 icon-container">
-                <a href="page7.html" class="icon-box">
-                    <i class="fas fa-question-circle icon"></i>
-                    <div class="home">Help</div>
+                <a  class="icon-box">
+                    <i class="fas fa-question-circle icon" id="userbtn2"></i>
+                    <div class="home">Users</div>
                 </a>
             </div>
             <div class="col-6 col-md-3 icon-container">
@@ -433,11 +433,10 @@
                 <input type="text" class="form-control form-control-sm" id="emergencyContactPerson" name="emergencyContactPerson" required>
             </div>
 
-            <button type="button" class="btn btn-outline-primary" id="employeeSave">SAVE</button>
+            <button type="submit" class="btn btn-outline-primary" id="employeeSave">SAVE</button>
             <button type="button" class="btn btn-outline-secondary" id="employeeUpdate">UPDATE</button>
             <button type="button" class="btn btn-outline-danger" id="deleteEmployee">DELETE</button>
-            <button type="button" class="btn btn-outline-info" id="getAllEmployee">GET-ALL</button>
-            <button type="button" class="btn btn-outline-dark">CLEAR-ALL</button>
+
         </form>
         <div class="container mt-4">
             <div class="table-responsive">
@@ -452,6 +451,7 @@
                         <th scope="col">DESIGNATION</th>
                         <th scope="col">ROLE</th>
                         <th scope="col">DOB</th>
+                        <th scope="col">DATE-OF JOIN</th>
                         <th scope="col">BRANCH</th>
                         <th scope="col">addressLine01</th>
                         <th scope="col">addressLine02</th>
@@ -474,6 +474,65 @@
 
         <div id="responseMessage" class="mt-3"></div>
     </div>
+</section>
+
+<section id="user" style="display: none">
+    <div class="container">
+        <h2 class="text-center">Register User</h2>
+        <div class="message"></div>
+        <form id="registrationForms2">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="emailuser" name="email" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+            </div>
+            <div class="row">
+                <div  class="form-group col-md-6">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select class="form-control" id="roleuser" name="role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-outline-primary" id="userSave">SAVE</button>
+            <button type="button" class="btn btn-outline-danger" id="deleteUser">DELETE</button>
+
+        </form>
+        <h3 class="mt-5">Registered Users</h3>
+        <table class="table table-bordered mt-3" id="userTable">
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="userTboady">
+            <!-- User data will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
 </section>
 
 
@@ -535,7 +594,7 @@
 <script src="assets/controller/dashboard.js"></script>
 <script src="assets/controller/customer.js"></script>
 <script src="assets/controller/employee.js"></script>
-
+<script src="assets/controller/user.js"></script>
 
 
 
