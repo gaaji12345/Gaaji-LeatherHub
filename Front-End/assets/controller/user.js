@@ -36,6 +36,7 @@ $('#userSave').click(function() {
                 text: res
             });
           fetchAllUsers();
+          clearInputFields();
             // clearFeilds();
         },
         error: function(ob, txtStatus, error) {
@@ -77,12 +78,68 @@ function fetchAllUsers() {
             alert('Error fetching user data.');
         }
     });
+    btnRowClickuser();
+}
+
+// Populate input fields when a row is clicked
+function btnRowClickuser() {
+    $('#userTable').on('click', 'tr', function() {
+        // Your existing code here
+        let id=$(this).children(":eq(0)").text();
+        let name=$(this).children(":eq(1)").text();
+        let nmb=$(this).children(":eq(2)").text();
+        let pw=$(this).children(":eq(3)").text();
+
+
+
+        // console.log(id,name,address,contact);
+
+        $('#emailuser').val(id);
+        $('#name').val(name);
+        $('#phoneNumber').val(nmb);
+        $('#password').val('');
+
+    });
 }
 
 
+function remove() {
+    $("#userTable tbody").on("dblclick", "tr", function () {
+        // Ask for confirmation before removing the user
+        const confirmed = confirm("Are you sure you want to delete this user?");
+
+        if (confirmed) {
+            // Remove the row from the table
+            $(this).remove();
+            Swal.fire({
+                icon: 'success',
+                title: 'Removed Successfully',
+                text: ''
+            });
+
+            // Show success alert
+
+        }else {
+            Swal.fire({
+                icon: 'success',
+                title: 'Try again',
+                text: ''
+            });
+        }
+    });
+}
+
+// Call the remove function to attach the event listener
+remove();
 
 
 
 // Initial fetch of users
-
+function clearInputFields() {
+    $('#emailuser').val('');
+    $('#name').val('');
+    $('#phoneNumber').val('');
+    $('#password').val('');
+    $('#roleuser').val('user'); // Set default role
+}
 
