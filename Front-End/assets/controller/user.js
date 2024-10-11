@@ -8,30 +8,46 @@ $(document).ready(function() {
 
 });
 
-// Fetch All Users AJAX
-// function fetchAllUsers() {
-//
-//
-//     // $('#tbItem').empty();
-//     $.ajax({
-//         url: 'http://localhost:8080/auth',
-//         method: "GET",
-//         headers: {
-//             'Authorization': 'Bearer ' + token
-//         },
-//         dataType: "json",//please convert the response into jason
-//         success: function (resp) {
-//             for (const user of resp) {
-//                 // $("#tbjson").empty();
-//                 console.log(typeof resp);
-//                 let row = `<tr><td>${user.email}</td><td>${user.name}</td><td>${user.phoneNumber}</td><td>${user.password}</td></tr>`
-//                 $("#userTboady").append(row);
-//             }
-//             // rowBack();
-//         }
-//     })
-// }
 
+
+$('#userSave').click(function() {
+    // Create a JSON object from the form data
+    var formData = $("#registrationForms2").serializeArray();
+    var data = {};
+    $(formData).each(function(index, obj) {
+        data[obj.name] = obj.value;
+    });
+
+    console.log(data);
+    console.log('Token:', token);
+
+    $.ajax({
+        url: 'http://localhost:8080/auth/register', // Make sure this matches your controller endpoint
+        method: "POST",
+        contentType: 'application/json', // Specify content type
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        data: JSON.stringify(data), // Convert data to JSON string
+        success: function(res) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Saved Successfully',
+                text: res
+            });
+          fetchAllUsers();
+            // clearFeilds();
+        },
+        error: function(ob, txtStatus, error) {
+            alert(txtStatus);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: ob.responseText // Show the error response text
+            });
+        }
+    });
+});
 function fetchAllUsers() {
     $.ajax({
         url: 'http://localhost:8080/auth', // Adjust URL as needed
@@ -62,6 +78,10 @@ function fetchAllUsers() {
         }
     });
 }
+
+
+
+
 
 // Initial fetch of users
 
