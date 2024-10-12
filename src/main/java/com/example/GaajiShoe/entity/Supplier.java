@@ -50,6 +50,7 @@ public class Supplier {
     @Column(name = "email")
     private String email;
 
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy =  "supplier")
+    private List<Inventory> inventory = new ArrayList<>();
 
 }
