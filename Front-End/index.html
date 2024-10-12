@@ -158,9 +158,9 @@
                 </a>
             </div>
             <div class="col-6 col-md-3 icon-container">
-                <a href="page4.html" class="icon-box">
-                    <i class="fas fa-envelope icon"></i>
-                    <div class="home">Messages</div>
+                <a  class="icon-box">
+                    <i class="fas fa-envelope icon" id="suplink"></i>
+                    <div class="home">Supplier</div>
                 </a>
             </div>
             <div class="col-6 col-md-3 icon-container">
@@ -533,6 +533,106 @@
         </table>
     </div>
 
+</section>
+
+
+<section id="supplier" style="display: none">
+    <div class="container">
+        <h1 class="mt-4">Supplier Management</h1>
+
+        <form id="supplierForm" class="mt-4">
+            <input type="hidden" id="supplierCode" name="supplierCode">
+            <div class="form-group">
+                <label for="supplierName">Supplier Name</label>
+                <input type="text" class="form-control" id="supplierName" name="supplierName" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control" id="category" name="category" required>
+                    <option value="">Select Category</option>
+                    <option value="Local">Local</option>
+                    <option value="International">International</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="addressLine01">Address Line 1</label>
+                    <input type="text" class="form-control" id="addressLine01sup" name="addressLine01">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="addressLine02">Address Line 2</label>
+                    <input type="text" class="form-control" id="addressLine02sup" name="addressLine02">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="addressLine03">Address Line 3</label>
+                    <input type="text" class="form-control" id="addressLine03sup" name="addressLine03">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="addressLine04">Address Line 4</label>
+                    <input type="text" class="form-control" id="addressLine04suo" name="addressLine04">
+                </div>
+            </div>
+            <div class="row">
+                <div  class="form-group col-md-6">
+                    <label for="addressLine05">Address Line 5</label>
+                    <input type="text" class="form-control" id="addressLine05sup" name="addressLine05">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="addressLine06">Address Line 6</label>
+                    <input type="text" class="form-control" id="addressLine06" name="addressLine06">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6" style="border-radius: 20px">
+                    <label for="contactNo1">Contact Number</label>
+                    <input type="text" class="form-control" id="contactNo1" name="contactNo1" required style="border-color:#080a08">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="landLineNo">Landline Number</label>
+                    <input type="text" class="form-control" id="landLineNo" name="landLineNo" style="border-color:#080a08">
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="emailsup" name="email" required>
+            </div>
+            <button type="submit" class="btn btn-outline-primary" id="supplierSave" style="border-radius: 20px">SAVE</button>
+            <button type="button" class="btn btn-outline-warning" id="updatesuuplier">UPDATE</button>
+            <button type="button" class="btn btn-outline-danger" id="deletesupplier" style="border-radius: 20px">DELETE</button>
+
+        </form>
+
+        <h2 class="mt-5">All Suppliers</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Supplier Code</th>
+                <th>Supplier Name</th>
+                <th>Category</th>
+                <th>Address</th>
+                <th>Address2</th>
+                <th>Address3</th>
+                <th>Address4</th>
+                <th>Address5</th>
+                <th>Address6</th>
+                <th>Contact Number</th>
+                <th>Landline Number</th>
+                <th>Email</th>
+<!--                <th>Actions</th>-->
+            </tr>
+            </thead>
+            <tbody id="supplierTableBody">
+            <!-- Supplier rows will be populated here -->
+            </tbody>
+        </table>
+    </div>
 </section>
 
 
