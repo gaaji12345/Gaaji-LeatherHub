@@ -6,6 +6,7 @@ package com.example.GaajiShoe.service.impl;/*  gaajiCode
 import com.example.GaajiShoe.dto.SupplierDTO;
 import com.example.GaajiShoe.entity.Supplier;
 import com.example.GaajiShoe.repo.SupplierRepo;
+import com.example.GaajiShoe.util.exeption.NotFoundException;
 import com.example.GaajiShoe.util.mapper.SupplierMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,8 +43,12 @@ public class SupplierServiceImpl {
                 .collect(Collectors.toList());
     }
 
-    public void deleteSupplier(String supplierCode) {
-        supplierRepository.deleteById(supplierCode);
+    public void deleteSupplier(String id) {
+//        supplierRepository.deleteById(supplierCode);
+        if(!supplierRepository.existsBySupplierCode(id)){
+            throw  new NotFoundException("Supplier ID"+ id + "Not Found...");
+        }
+        supplierRepository.deleteBySupplierCode(id);
     }
 
     public SupplierDTO updateSupplier(SupplierDTO supplierDTO) {
