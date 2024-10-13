@@ -48,3 +48,64 @@ function fetchSuppliers() {
         }
     });
 }
+
+$('#supplierSave').click(function() {
+    // Create a JSON object from the form data
+    var formData = $("#supplierForm").serializeArray();
+    var data = {};
+    $(formData).each(function(index, obj) {
+        data[obj.name] = obj.value;
+    });
+
+    console.log(data);
+    console.log('Token:', token);
+
+    $.ajax({
+        url: 'http://localhost:8080/api/suppliers', // Make sure this matches your controller endpoint
+        method: "POST",
+        contentType: 'application/json', // Specify content type
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        data: JSON.stringify(data), // Convert data to JSON string
+        success: function(res) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Saved Successfully',
+                text: res
+            });
+
+            fetchSuppliers();
+        },
+        error: function(ob, txtStatus, error) {
+            alert(txtStatus);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: ob.responseText // Show the error response text
+            });
+        }
+    });
+});
+
+
+
+function deleteSupplier(supplierCode) {
+    if (confirm('Are you sure you want to delete this supplier?')) {
+        $.ajax({
+            url: `http://localhost:8080/api/suppliers?id=${supplierCode}`, // Adjust the URL to match your DELETE endpoint
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+
+            success: function() {
+                alert('Supplier deleted successfully');
+                // fetchSuppliers(); // Refresh the list
+            },
+            error: function(err) {
+                // console.error('Error deleting supplier:', err);
+            }
+        });
+    }
+}
