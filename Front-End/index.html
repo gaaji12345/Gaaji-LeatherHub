@@ -484,7 +484,7 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="emailuser" name="email" required>
+                    <input type="email" class="form-control" id="emailuser" name="emailuser" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="name">Name</label>
@@ -541,7 +541,12 @@
         <h1 class="mt-4">Supplier Management</h1>
 
         <form id="supplierForm" class="mt-4">
-            <input type="hidden" id="supplierCode" name="supplierCode">
+<!--            <input type="hidden" id="supplierCode" name="supplierCode">-->
+
+            <div class="form-group">
+                <label for="supplierCode">Supplier Code</label>
+                <input type="text" class="form-control" id="supplierCode" name="supplierCode" required>
+            </div>
             <div class="form-group">
                 <label for="supplierName">Supplier Name</label>
                 <input type="text" class="form-control" id="supplierName" name="supplierName" required>
@@ -550,8 +555,8 @@
                 <label for="category">Category</label>
                 <select class="form-control" id="category" name="category" required>
                     <option value="">Select Category</option>
-                    <option value="Local">Local</option>
-                    <option value="International">International</option>
+                    <option value="LOCAL">LOCAL</option>
+                    <option value="INTERNATIONAL">INTERNATIONAL</option>
                 </select>
             </div>
 
@@ -603,35 +608,39 @@
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="emailsup" name="email" required>
             </div>
-            <button type="submit" class="btn btn-outline-primary" id="supplierSave" style="border-radius: 20px">SAVE</button>
-            <button type="button" class="btn btn-outline-warning" id="updatesuuplier">UPDATE</button>
+            <button type="button" class="btn btn-outline-primary" id="supplierSave" style="border-radius: 20px">SAVE</button>
+            <button type="button" class="btn btn-outline-warning" id="updatesuuplier" style="border-radius: 20px">UPDATE</button>
             <button type="button" class="btn btn-outline-danger" id="deletesupplier" style="border-radius: 20px">DELETE</button>
 
         </form>
 
         <h2 class="mt-5">All Suppliers</h2>
-        <table class="table table-striped">
+        <div class="container mt-4">
+            <div class="table-responsive">
+        <table class="table table-striped" id="supTable">
             <thead>
             <tr>
-                <th>Supplier Code</th>
-                <th>Supplier Name</th>
-                <th>Category</th>
-                <th>Address</th>
-                <th>Address2</th>
-                <th>Address3</th>
-                <th>Address4</th>
-                <th>Address5</th>
-                <th>Address6</th>
-                <th>Contact Number</th>
-                <th>Landline Number</th>
-                <th>Email</th>
-<!--                <th>Actions</th>-->
+                <th scope="col">Supplier Code</th>
+                <th scope="col">Supplier Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Address</th>
+                <th scope="col">Address2</th>
+                <th scope="col">Address3</th>
+                <th scope="col">Address4</th>
+                <th scope="col">Address5</th>
+                <th scope="col">Address6</th>
+                <th scope="col">Contact Number</th>
+                <th scope="col">Landline Number</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody id="supplierTableBody">
             <!-- Supplier rows will be populated here -->
             </tbody>
         </table>
+                </div>
+            </div>
     </div>
 </section>
 
@@ -695,6 +704,7 @@
 <script src="assets/controller/customer.js"></script>
 <script src="assets/controller/employee.js"></script>
 <script src="assets/controller/user.js"></script>
+<script src="assets/controller/supplier.js"></script>
 
 
 
