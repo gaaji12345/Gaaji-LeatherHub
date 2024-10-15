@@ -49,6 +49,9 @@ $('#userSave').click(function() {
         }
     });
 });
+
+
+
 function fetchAllUsers() {
     $.ajax({
         url: 'http://localhost:8080/auth', // Adjust URL as needed
@@ -83,22 +86,38 @@ function fetchAllUsers() {
 
 // Populate input fields when a row is clicked
 function btnRowClickuser() {
-    $('#userTable').on('click', 'tr', function() {
-        // Your existing code here
-        let id=$(this).children(":eq(0)").text();
-        let name=$(this).children(":eq(1)").text();
-        let nmb=$(this).children(":eq(2)").text();
-        let pw=$(this).children(":eq(3)").text();
+    // $('#userTable').on('click', 'tr', function() {
+    //     // Your existing code here
+    //     let id=$(this).children(":eq(0)").text();
+    //     let name=$(this).children(":eq(1)").text();
+    //     let nmb=$(this).children(":eq(2)").text();
+    //     let pw=$(this).children(":eq(3)").text();
+    //     let row=$(this).children(":eq(4)").text();
+    //
+    //
+    //
+    //     // console.log(id,name,address,contact);
+    //
+    //     $('#emailuser').val(id);
+    //     $('#name').val(name);
+    //     $('#phoneNumber').val(nmb);
+    //     $('#password').val('');
+    //     $('#roleuser').val(row);
+    //
+    //
+    // });
 
+    $('#userTboady').on('click', 'tr', function() {
+        const email = $(this).find('td:eq(0)').text(); // Get email from the first cell
+        const name = $(this).find('td:eq(1)').text(); // Get name from the second cell
+        const phoneNumber = $(this).find('td:eq(2)').text(); // Get phone number from the third cell
+        const role = $(this).find('td:eq(3)').text(); // Get role from the fourth cell
 
-
-        // console.log(id,name,address,contact);
-
-        $('#emailuser').val(id);
+        // Populate input fields
+        $('#emailuser').val(email);
         $('#name').val(name);
-        $('#phoneNumber').val(nmb);
-        $('#password').val('');
-
+        $('#phoneNumber').val(phoneNumber);
+        $('#roleuser').val(role.toLowerCase()); // Ensure the role matches the select value
     });
 }
 
@@ -128,6 +147,38 @@ function remove() {
         }
     });
 }
+
+
+
+$('#deleteUser').click(function (){
+    // $('#tbCustomer').empty();
+    let email = $("#emailuser").val();
+    let r=confirm("Are you sure you want to delete this user?");
+    $.ajax({
+        url:"http://localhost:8080/auth?email="+email,
+        method:"DELETE",
+        // data:data ,
+        success:function (res){
+            if(r){
+                console.log(res)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Removed Successfully',
+                    text: ''
+                });
+                alert("Succes Fully deleted");
+                fetchAllUsers();
+                clearInputFields();
+            }
+        },
+        error:function (ob,status,t){
+            console.log(ob);
+            console.log(status);
+            console.log(t);
+
+        }
+    })
+});
 
 // Call the remove function to attach the event listener
 remove();

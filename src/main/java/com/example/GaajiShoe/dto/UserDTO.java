@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -23,5 +23,6 @@ public class UserDTO {
     private String phoneNumber;
     private String password;
     private String role;
+
 
 }

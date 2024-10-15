@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface UserRepo extends JpaRepository<User,Long> {
+public interface UserRepo extends JpaRepository<User,String> {
     Optional<User> findByEmail(String email);
 
     // Custom method to find a user by email

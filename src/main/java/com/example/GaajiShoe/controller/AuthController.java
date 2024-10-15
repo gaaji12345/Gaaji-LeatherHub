@@ -8,6 +8,7 @@ import com.example.GaajiShoe.dto.LoginRequest;
 import com.example.GaajiShoe.dto.Responce;
 import com.example.GaajiShoe.dto.UserDTO;
 import com.example.GaajiShoe.service.UserService;
+import com.example.GaajiShoe.util.ResponceUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,10 +45,18 @@ public class AuthController {
 //    }
 
 
-    @DeleteMapping("/{email}")
-    public ResponseEntity<Responce> deleteUser(@PathVariable("email") Long email) {
-        Responce response = userService.deleteUser(email);
-        return ResponseEntity.ok(response);
+//    @DeleteMapping("/{email}")
+//    public ResponseEntity<Responce> deleteUser(@PathVariable("email") Long email) {
+//        Responce response = userService.deleteUser(email);
+//        return ResponseEntity.ok(response);
+//    }
+
+    @DeleteMapping
+//    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponceUtil deletCustomer(@RequestParam("email") String email){
+       userService.deleteUser(email);
+        return new ResponceUtil(200,"Deleted",null);
+
     }
     @GetMapping()
     @PreAuthorize("hasAuthority('ADMIN')")

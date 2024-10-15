@@ -5,12 +5,13 @@ package com.example.GaajiShoe.entity;/*  gaajiCode
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Data
 @Entity
+@Table(name = "inventory")
 public class Inventory {
     @Id
     @Column(name = "item_code")

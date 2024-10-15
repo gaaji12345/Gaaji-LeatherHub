@@ -1,4 +1,6 @@
-package com.example.GaajiShoe.dto;/*  gaajiCode
+package com.example.GaajiShoe.dto;
+
+/*  gaajiCode
     99
     08/10/2024
     */
@@ -6,21 +8,17 @@ package com.example.GaajiShoe.dto;/*  gaajiCode
 
 import com.example.GaajiShoe.enums.Gender;
 import com.example.GaajiShoe.enums.UserRole;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class EmployeeDTO {
-
     private String employeeCode;
     private String employeeName;
     private String empPic;
@@ -38,11 +36,12 @@ public class EmployeeDTO {
     private String addressLine03;
     private String addressLine04;
     private String addressLine05;
-
     @Pattern(regexp = "^\\+?[0-9()-]{1,11}$", message = "Invalid contact number format")
     private String contactNo;
     private String email;
     private String emergencyContact;
     private String emergencyContactPerson;
+
+
 
 }

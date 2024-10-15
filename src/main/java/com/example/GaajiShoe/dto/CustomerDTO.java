@@ -34,5 +34,4 @@ public class CustomerDTO {
     private Date recentPurchaseDateTime;
 
 
-
 }

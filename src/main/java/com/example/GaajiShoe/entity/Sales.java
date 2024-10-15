@@ -3,9 +3,9 @@ package com.example.GaajiShoe.entity;/*  gaajiCode
     12/10/2024
     */
 
+
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

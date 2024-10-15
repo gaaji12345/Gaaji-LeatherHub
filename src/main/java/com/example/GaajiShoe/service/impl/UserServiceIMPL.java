@@ -102,19 +102,20 @@ public class UserServiceIMPL implements UserService {
     }
 
 
+
     @Override
-    public Responce deleteUser(Long id) {
-        User user = userRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException("User with email " + id + " not found"));
+    public Responce deleteUser(String email) {
+        User user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("User not found with ID: " + email));
 
         userRepo.delete(user);
-        log.info("User with email {} has been deleted", id);
 
         return Responce.builder()
                 .status(200)
                 .message("User successfully deleted")
                 .build();
     }
+
 
 
 //    @Override
