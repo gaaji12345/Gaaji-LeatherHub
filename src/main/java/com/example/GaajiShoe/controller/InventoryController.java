@@ -5,8 +5,15 @@ package com.example.GaajiShoe.controller;/*  gaajiCode
 
 
 import com.example.GaajiShoe.dto.InventoryDTO;
+import com.example.GaajiShoe.dto.InventoryRq;
+import com.example.GaajiShoe.entity.Inventory;
+import com.example.GaajiShoe.entity.Supplier;
 import com.example.GaajiShoe.service.InventoryService;
+import com.example.GaajiShoe.util.FileUploadUtil;
 import com.example.GaajiShoe.util.ResponceUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,20 +22,29 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.DataInput;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
-@RequestMapping("inventory")
+@RequestMapping("/inventory")
 @CrossOrigin
 public class InventoryController {
 
     @Autowired
     InventoryService inventoryService;
+
+    @Autowired
+    private FileUploadUtil fileUploadUtil;
+
+
+    private final String UPLOAD_DIR = "/Users/gaaji/Downloads/testUpload/"; // Change as needed
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,27 +53,9 @@ public class InventoryController {
     }
 
 
-//    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    @ResponseStatus(HttpStatus.CREATED)
-//    InventoryDTO saveInventory(@RequestPart("data") InventoryDTO inventoryDTO, @RequestPart("itempic") MultipartFile itempic){
-//        String base64ProfilePic = null;
-//        try {
-//            base64ProfilePic = Base64.getEncoder().encodeToString(itempic.getBytes());
-//            inventoryDTO.setItemPicture(
-//                    base64ProfilePic
-//            );
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return inventoryService.saveInventory(inventoryDTO);
-//    }
-
-
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<InventoryDTO> saveInventory(
             @RequestParam("file") MultipartFile itemPic,
-//            @RequestParam("itemCode") String itemCode,
             @RequestParam("itemDescription") String itemDescription,
             @RequestParam("category") String category,
             @RequestParam("size") Integer size,
@@ -69,26 +67,29 @@ public class InventoryController {
             @RequestParam("profitMargin") Double profitMargin,
             @RequestParam("status") String status,
             @RequestParam("quantity") Integer quantity,
-            @RequestParam("pQuantity") Integer pQuantity) throws IOException {
+            @RequestParam("pQuantity") Integer pQuantity) {
 
-        // Handle file upload (save to directory)
-        String uploadDir = "/Users/gaaji/Downloads/testUpload/"; // Change username
-        File directory = new File(uploadDir);
+//        // Ensure the upload directory exists
+        File directory = new File(UPLOAD_DIR);
         if (!directory.exists()) {
             directory.mkdirs();
         }
 
-        String filePath = uploadDir + itemPic.getOriginalFilename();
-        itemPic.transferTo(new File(filePath));
+        // Save the file
+        String filePath = Paths.get(UPLOAD_DIR, itemPic.getOriginalFilename()).toString();
+        try {
+            itemPic.transferTo(new File(filePath));
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null); // Handle file upload error
+        }
+//
 
-        // Convert file to Base64
-        String base64ItemPic = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get(filePath)));
 
-        // Create InventoryDTO and set all fields
+        // Create InventoryDTO object
         InventoryDTO inventoryDTO = new InventoryDTO();
-//        inventoryDTO.setItemCode(itemCode);
         inventoryDTO.setItemDescription(itemDescription);
-        inventoryDTO.setItemPicture(base64ItemPic);
+        inventoryDTO.setItemPicture(filePath); // Save the file path
         inventoryDTO.setCategory(category);
         inventoryDTO.setSize(size);
         inventoryDTO.setSupplierCode(supplierCode);
@@ -101,10 +102,12 @@ public class InventoryController {
         inventoryDTO.setQuantity(quantity);
         inventoryDTO.setPQuantity(pQuantity);
 
-        // Save the inventory
+        // Save inventory and convert back to DTO
         InventoryDTO savedInventory = inventoryService.saveInventory(inventoryDTO);
-        return ResponseEntity.ok(savedInventory);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedInventory);
     }
+
+
 
 
     @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -125,6 +128,11 @@ public class InventoryController {
         inventoryService.deleteInventory(inventoryCode);
         return new ResponceUtil(200,"Deleted",null);
 
+    }
+
+    @GetMapping("/generateInventoryCode")
+    public String generateInventoryCode(@RequestParam("prefix") String prefix) {
+        return inventoryService.nextInventoryCode(prefix);
     }
 }
 
