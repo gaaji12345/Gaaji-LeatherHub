@@ -5,8 +5,32 @@ $(document).ready(function() {
 
     loadAllInventory();
 
+    loadInventoryCode('IIM');
 
 });
+
+
+    // Call this function to load the inventory code when the page loads
+ // Replace 'IIM' with your desired prefix
+
+    // Function to generate and load inventory code
+    function loadInventoryCode(prefix) {
+        $.ajax({
+            url: `http://localhost:8080/inventory/generateInventoryCode?prefix=${prefix}`,
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + token // Ensure you have the token variable available
+            },
+            success: function (newCode) {
+                console.log('Generated Inventory Code:', newCode);
+                $('#itemCode').val(newCode); // Populate the input field with the new code
+            },
+            error: function (xhr, status, error) {
+                console.error('Error generating inventory code:', error);
+            }
+        });
+    }
+
 
 
 function loadAllInventory(){
