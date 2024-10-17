@@ -6,6 +6,7 @@ package com.example.GaajiShoe.service;
     */
 
 import com.example.GaajiShoe.dto.InventoryDTO;
+import com.example.GaajiShoe.entity.Inventory;
 
 import java.util.List;
 
@@ -17,5 +18,6 @@ public interface InventoryService {
     void deleteInventory(String id);
     String nextInventoryCode(String code);
     List<InventoryDTO> getMostSaleItem();
+
 
 }
