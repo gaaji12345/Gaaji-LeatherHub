@@ -173,3 +173,33 @@ function addRowToTable() {
     });
 }
 
+$('#deleteinvbtn').click(function (){
+    // $('#tbCustomer').empty();
+    let itmCode = $("#itemCode").val();
+    $.ajax({
+        url:"http://localhost:8080/inventory?inventoryCode="+itmCode,
+        method:"DELETE",
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        // data:data ,
+        success:function (res) {
+            console.log(res)
+            loadAllInventory();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Delete Successfully',
+                text: res.itemCode
+            });
+
+
+        },
+        error:function (ob,status,t){
+            console.log(ob);
+            console.log(status);
+            console.log(t);
+
+        }
+    })
+});
