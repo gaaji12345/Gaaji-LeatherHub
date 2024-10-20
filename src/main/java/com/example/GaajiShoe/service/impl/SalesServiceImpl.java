@@ -129,6 +129,13 @@ public class SalesServiceImpl implements SalesService {
 
     @Override
     public void deleteSales(String id) {
+        if(!detailsRepo.existsBySalesOrderNo(id)&&!salesRepo.existsByOrderNo(id)){
+            throw  new NotFoundException("Sales "+ id + "Not Found...");
+        }else if(salesRepo.existsByOrderNo(id)){
+            salesRepo.deleteByOrderNo(id);
+        }
+        detailsRepo.deleteAllBySalesOrderNo(id);
+        salesRepo.deleteByOrderNo(id);
 
     }
 
