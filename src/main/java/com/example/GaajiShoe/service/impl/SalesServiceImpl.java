@@ -20,6 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -97,9 +101,30 @@ public class SalesServiceImpl implements SalesService {
         }
     }
 
+    @Transactional
     @Override
     public void updateSales(String id, SalesDTO salesDTO) {
 
+        for(SlaesInventoryDTO inventoryDTO : salesDTO.getInventory()){
+            if(inventoryDTO.getQuantity() == 0){
+                if(!isDateWithinThreeDays(String.valueOf(salesDTO.getPurchaseDate()))){
+                    System.out.println("----------------------------------------------------------------");
+                    System.out.println("comming");
+                    throw new NotFoundException("Update Failed This Order " +
+                            salesDTO.getOrderNo() + " Can't refund");
+                }
+            }
+        }
+        if(salesRepo.existsById(salesDTO.getOrderNo())){
+            salesRepo.save(mapper.map(salesDTO,Sales.class));
+            for (SlaesInventoryDTO inventoryDTO : salesDTO.getInventory()) {
+                if(!detailsRepo.existsById(inventoryDTO.getId())){
+                    throw new NotFoundException("Update Failed; Sales id: " +
+                            salesDTO.getOrderNo() + " does not exist");
+                }
+                detailsRepo.save(mapper.map(inventoryDTO, SalesDetails.class));
+            }
+        }
     }
 
     @Override
@@ -155,6 +180,14 @@ public class SalesServiceImpl implements SalesService {
         return valid;
     }
 
+
+    protected boolean isDateWithinThreeDays(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy");
+        LocalDateTime inputDate = LocalDateTime.parse(dateString, formatter.withZone(ZoneId.of("Asia/Kolkata")));
+        LocalDateTime currentDate = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
+        LocalDateTime threeDaysAgo = currentDate.minus(3, ChronoUnit.DAYS);
+        return !inputDate.isBefore(threeDaysAgo);
+    }
 
 
 }
