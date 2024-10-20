@@ -23,4 +23,6 @@ public interface SupplierService {
 
     public SupplierDTO updateSupplier(SupplierDTO supplierDTO);
 
+//    public List<String> getAllSupplierCodes();
+
 }

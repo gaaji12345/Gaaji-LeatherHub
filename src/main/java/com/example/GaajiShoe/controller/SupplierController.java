@@ -24,7 +24,7 @@ public class SupplierController {
     @Autowired
     private SupplierServiceImpl supplierService;
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<SupplierDTO>> getAllSuppliers() {
         List<SupplierDTO> suppliers = supplierService.getAllSuppliers();
         return new ResponseEntity<>(suppliers, HttpStatus.OK);
@@ -58,6 +58,10 @@ public class SupplierController {
         return new ResponceUtil(200,"Deleted",null);
 
     }
+
+
+
+
 
 
 }

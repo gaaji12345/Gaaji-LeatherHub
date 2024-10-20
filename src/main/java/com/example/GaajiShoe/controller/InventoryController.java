@@ -4,6 +4,7 @@ package com.example.GaajiShoe.controller;/*  gaajiCode
     */
 
 
+import com.example.GaajiShoe.dto.EmployeeDTO;
 import com.example.GaajiShoe.dto.InventoryDTO;
 import com.example.GaajiShoe.dto.InventoryRq;
 import com.example.GaajiShoe.entity.Inventory;
@@ -11,6 +12,7 @@ import com.example.GaajiShoe.entity.Supplier;
 import com.example.GaajiShoe.service.InventoryService;
 import com.example.GaajiShoe.util.FileUploadUtil;
 import com.example.GaajiShoe.util.ResponceUtil;
+import com.example.GaajiShoe.util.exeption.NotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.LoggerFactory;
@@ -28,13 +30,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/inventory")
-@CrossOrigin
+@CrossOrigin("*")
 public class InventoryController {
 
     @Autowired
@@ -134,6 +137,41 @@ public class InventoryController {
     public String generateInventoryCode(@RequestParam("prefix") String prefix) {
         return inventoryService.nextInventoryCode(prefix);
     }
+
+
+
+    @PutMapping(value = "/{id}", consumes = "multipart/form-data")
+    public ResponseEntity<InventoryDTO> updateInventory(
+            @PathVariable("id") String id,
+            @RequestParam(value = "file", required = false) MultipartFile itemPic,
+            @ModelAttribute InventoryDTO inventoryDTO) {
+
+        // Set the item code in the DTO
+        inventoryDTO.setItemCode(id);
+
+        // Handle the file if it's provided
+        if (itemPic != null && !itemPic.isEmpty()) {
+            try {
+                // Convert the file to byte array and store it as needed
+                byte[] fileBytes = itemPic.getBytes();
+                // Example: Store as Base64
+                inventoryDTO.setItemPicture(Base64.getEncoder().encodeToString(fileBytes));
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(null); // Handle file processing error
+            }
+        }
+
+        try {
+            // Call the service method to update the inventory
+            inventoryService.updateInventory(id, inventoryDTO);
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        // Return the updated inventory
+        return ResponseEntity.ok(inventoryDTO);
+    }
+
+
 }
-
-

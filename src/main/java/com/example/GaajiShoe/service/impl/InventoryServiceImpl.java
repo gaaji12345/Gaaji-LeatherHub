@@ -111,43 +111,6 @@ public class InventoryServiceImpl  implements InventoryService {
 
 
 
-    @Override
-    public List<InventoryDTO> getMostSaleItem() {
-        LocalDate today = LocalDate.now();
-        List<Sales> todaySales = salesRepo.findTodaySales(String.valueOf(today));
-        List<SlaesInventoryDTO> todaySaleInventoryDetails = new ArrayList<>();
-
-        // Aggregate sales details into a single list
-        for (Sales sale : todaySales) {
-            List<SlaesInventoryDTO> orderDetails = salesDetailsRepo
-                    .findAllBySalesOrderNo(sale.getOrderNo()).stream()
-                    .map(details -> mapper.map(details, SlaesInventoryDTO.class))
-                    .toList();
-            todaySaleInventoryDetails.addAll(orderDetails);
-        }
-
-        // Combine quantities for the same item
-        Map<String, SlaesInventoryDTO> inventoryMap = new HashMap<>();
-        for (SlaesInventoryDTO dto : todaySaleInventoryDetails) {
-            inventoryMap.merge(dto.getInventory().getItemCode(), dto,
-                    (existing, newDto) -> {
-                        existing.setQuantity(existing.getQuantity() + newDto.getQuantity());
-                        return existing;
-                    });
-        }
-
-        // Sort and prepare final list
-        List<SlaesInventoryDTO> sortedInventoryDetails = new ArrayList<>(inventoryMap.values());
-        sortedInventoryDetails.sort(Comparator.comparingInt(SlaesInventoryDTO::getQuantity).reversed());
-
-        // Create final inventory list
-        return sortedInventoryDetails.stream()
-                .map(SlaesInventoryDTO::getInventory)
-                .toList();
-    }
-
-
-
 
     private void manageStatus(){
         InventoryDTO inventoryDTO;
@@ -181,6 +144,61 @@ public class InventoryServiceImpl  implements InventoryService {
     }
 
 
+    @Override
+    public List<InventoryDTO> getMostSaleItem(){
+        List<Sales>getAllTodaySales;
+        List<SlaesInventoryDTO>getTodaySaleInventoryDetails = new ArrayList<>();
+        List<SlaesInventoryDTO>TodaySaleInventoryDetails = new ArrayList<>();
+        Boolean notFound = false;
+        LocalDate today = LocalDate.now();
+        getAllTodaySales = salesRepo.findTodaySales(String.valueOf(today));
+        //System.out.println(getAllTodaySales.get(0).getOrderNo());
+        for(int i = 0; i<getAllTodaySales.size(); i++){
+            List<SlaesInventoryDTO>getOneOrderSalesDetails = salesDetailsRepo.findAllBySalesOrderNo(getAllTodaySales.get(i).getOrderNo()).stream().map(
+                    salesDetails -> mapper.map(salesDetails, SlaesInventoryDTO.class)
+            ).toList();
+            for(SlaesInventoryDTO salesInventoryDTO:getOneOrderSalesDetails){
+                getTodaySaleInventoryDetails.add(salesInventoryDTO);
+            }
+        }
+        System.out.println("/////////////////");
+        System.out.println(getTodaySaleInventoryDetails.size());
+        for(int i = 0; i<getTodaySaleInventoryDetails.size(); i++){
+            if(TodaySaleInventoryDetails.size()>0) {
+                L:for (int j = 0; j < TodaySaleInventoryDetails.size(); j++) {
+                    if(getTodaySaleInventoryDetails.get(i).getInventory().getItemCode().equals(
+                            TodaySaleInventoryDetails.get(j).getInventory().getItemCode()
+                    )){
+                        System.out.println("comming!");
+                        TodaySaleInventoryDetails.get(j).setQuantity(
+                                TodaySaleInventoryDetails.get(j).getQuantity()+getTodaySaleInventoryDetails.get(i).getQuantity()
+                        );
+                        notFound = false;
+                        break L;
+                    }else {notFound = true;}
+                }
+                if(notFound){
+                    TodaySaleInventoryDetails.add(getTodaySaleInventoryDetails.get(i));
+                }
+            }else{
+                TodaySaleInventoryDetails.add(getTodaySaleInventoryDetails.get(i));
+            }
+        }
+        TodaySaleInventoryDetails = sortAsSaleItemsQuantity(TodaySaleInventoryDetails);
+        List<InventoryDTO>invetorys = new ArrayList<>();
+        for(int i = TodaySaleInventoryDetails.size()-1; i >=0; i--){
+            System.out.println(TodaySaleInventoryDetails.get(i).getInventory());
+            invetorys.add(TodaySaleInventoryDetails.get(i).getInventory());
+            System.out.println(TodaySaleInventoryDetails.get(i).getQuantity());
+        }
+
+        return invetorys;
+    }
+
+    private List<SlaesInventoryDTO> sortAsSaleItemsQuantity(List<SlaesInventoryDTO> list){
+        list.sort(Comparator.comparingInt(SlaesInventoryDTO::getQuantity));
+        return list;
+    }
 
 
 }

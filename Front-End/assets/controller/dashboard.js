@@ -14,3 +14,16 @@ $('#userbtn2').click(function (){
     $("#user").show();
 });
 
+$('#suplink').click(function (){
+    $('#maindash').hide();
+    $("#supplier").show();
+});
+
+$('#inlink').click(function (){
+    $('#maindash').hide();
+    $("#inventory").show();
+});
+
+
+
+
