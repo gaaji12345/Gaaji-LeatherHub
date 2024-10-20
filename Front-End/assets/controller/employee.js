@@ -9,6 +9,7 @@ $(document).ready(function() {
 
 });
 
+
 function getAllEmployee() {
     $("#employeeTboady").empty(); // Clear the existing table body
     $.ajax({
