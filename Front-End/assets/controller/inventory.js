@@ -114,7 +114,7 @@ function btnRowClickInv() {
         // Your existing code here
         let id=$(this).children(":eq(0)").text();
         let name=$(this).children(":eq(1)").text();
-        let gender=$(this).children(":eq(2)").text();
+        // let gender=$(this).children(":eq(2)").text();
         let joindate=$(this).children(":eq(3)").text();
         let level=$(this).children(":eq(4)").text();
         let totp=$(this).children(":eq(5)").text();
@@ -126,15 +126,15 @@ function btnRowClickInv() {
         let email=$(this).children(":eq(11)").text();
         let st=$(this).children(":eq(12)").text();
         let qnti=$(this).children(":eq(13)").text();
-        let pq=$(this).children(":eq(14)").text();
+
 
 
 
         // console.log(id,name,address,contact);
 
-        $('#itemPic').val(id);
-        $('#itemCode').val(name);
-        $('#itemDescription').val(gender);
+        $('#itemPic').val('');
+        $('#itemCode').val(id);
+        $('#itemDescription').val(name);
         $('#categoryin').val((joindate));
         $('#size').val(level);
         $('#supplierCodein').val(totp);
@@ -142,11 +142,10 @@ function btnRowClickInv() {
         $('#unitPriceSale').val(ad1);
         $('#unitPriceBuy').val(ad2);
         $('#expectedProfit').val(ad3);
-        $('#landLineNo').val(ad4);
-        $('#profitMargin').val(email);
-        $('#statusin').val(st);
-        $('#quantity').val(qnti);
-        $('#pQuantity').val(pq);
+        $('#profitMargin').val(ad4);
+        $('#statusin').val(qnti);
+        $('#quantity').val(st);
+        $('#pQuantity').val(qnti);
 
 
     });
@@ -186,6 +185,7 @@ $('#deleteinvbtn').click(function (){
         success:function (res) {
             console.log(res)
             loadAllInventory();
+            clearFeildsInventory();
 
             Swal.fire({
                 icon: 'success',
@@ -203,3 +203,9 @@ $('#deleteinvbtn').click(function (){
         }
     })
 });
+
+function clearFeildsInventory() {
+    $("#itemPic, #itemCode,#itemDescription,#categoryin,#size,#supplierCodein,#supplierNamein,#unitPriceSale,#unitPriceBuy,#expectedProfit,#profitMargin,#quantity,#pQuantity").val("");
+     loadInventoryCode('IIM');
+    $('#itemCode').focus();
+}
