@@ -20,13 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -141,17 +142,57 @@ public class SalesServiceImpl implements SalesService {
 
     @Override
     public String nextOrderCode() {
-        return null;
+        String lastOrderCode = salesRepo.findLatestOrderCode();
+        if(lastOrderCode==null){lastOrderCode = "ORD0000";}
+        int numericPart = Integer.parseInt(lastOrderCode.substring(4));
+        numericPart++;
+        String nextOrderCode = "ORD" + String.format("%04d", numericPart);
+        return nextOrderCode;
     }
 
     @Override
     public Map<String, Double> getWeeklyProfit() {
-        return null;
+        Map<String, Double> dataList = new HashMap<>();
+        List<Date> dates = new ArrayList<>();
+        int quantity;
+        double dayProfit = 0;
+        dates = salesRepo.findAllPurchaseDate();
+        for (Date date:dates){
+            if(convertToLocalDateFormat(String.valueOf(date))){
+                List<Sales> sales = salesRepo.findAllByPurchaseDate(date);
+                for (int i = 0; i < sales.size(); i++) {
+                    List<SalesDetails> salesDetailsArray = detailsRepo.findAllBySalesOrderNo(sales.get(i).getOrderNo());
+                    for (int j = 0; j < salesDetailsArray.size(); j++){
+                        System.out.println("----------------------------------------------------------------");
+                        quantity = salesDetailsArray.get(j).getQuantity();
+                        InventoryDTO inventoryDTO = mapper.map(
+                                inventoryRepo.findByItemCode(salesDetailsArray.get(j).getInventory().getItemCode()),InventoryDTO.class
+                        );
+                        dayProfit += quantity*(inventoryDTO.getExpectedProfit());
+                    }
+                    System.out.println("////////////////////////////////////////////////////////////////");
+                    System.out.println(date);
+                    System.out.println(dayProfit);
+                    if(dayProfit!=0){
+                        String newdate = convertDateFormat(String.valueOf(date));
+                        if (!dataList.containsKey(newdate)) {
+                            dataList.put(newdate, dayProfit);
+                        } else {
+                            double currentProfit = dataList.get(newdate);
+                            dataList.put(newdate, currentProfit + dayProfit);
+                        }
+                    }
+                    dayProfit = 0;
+                }
+            }
+        }
+        System.out.println(dataList);
+        return dataList;
     }
 
     @Override
     public Double getMonthlyRevenue() {
-        return null;
+        return salesRepo.getCurrentMonthTotalRevenue();
     }
     protected Boolean maintainInventoryQuantity(SalesDTO salesDTO){
         boolean valid = false;
@@ -196,5 +237,45 @@ public class SalesServiceImpl implements SalesService {
         return !inputDate.isBefore(threeDaysAgo);
     }
 
+    private Boolean convertToLocalDateFormat(String dateTimeString){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime localDateTime = LocalDateTime.parse(dateTimeString, dateTimeFormatter);
+        LocalDate localDate = localDateTime.toLocalDate();
 
+        Boolean purchaseDateEqualToWeeklyDate = checkWeeklyDate(localDate.format(dateFormatter));
+        return purchaseDateEqualToWeeklyDate;
+    }
+    private boolean checkWeeklyDate(String purchasedate){
+        List<LocalDate> dates = new ArrayList<>();
+        Boolean vaid = false;
+        LocalDate today = LocalDate.now();
+
+        for (int i = 6; i >= 0; i--) {
+            LocalDate date = today.minusDays(i);
+            dates.add(date);
+        }
+
+        L:for (LocalDate date : dates) {
+            if(String.valueOf(date).equals(purchasedate)){
+                vaid = true;
+                break L;
+            }else{
+                vaid = false;
+            }
+        }
+        return vaid;
+    }
+
+    private String convertDateFormat(String inputDateStr) {
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+        Date inputDate = null;
+        try {
+            inputDate = inputDateFormat.parse(inputDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat outputDateFormatObj = new SimpleDateFormat("yyyy-MM-dd");
+        return outputDateFormatObj.format(inputDate);
+    }
 }
