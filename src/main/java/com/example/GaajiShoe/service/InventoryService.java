@@ -17,7 +17,7 @@ public interface InventoryService {
     void updateInventory(String id, InventoryDTO inventoryDTO);
     void deleteInventory(String id);
     String nextInventoryCode(String code);
-    List<InventoryDTO> getMostSaleItem();
+
 
 
 }

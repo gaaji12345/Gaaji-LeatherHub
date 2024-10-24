@@ -4,18 +4,12 @@ package com.example.GaajiShoe.controller;/*  gaajiCode
     */
 
 
-import com.example.GaajiShoe.dto.EmployeeDTO;
 import com.example.GaajiShoe.dto.InventoryDTO;
-import com.example.GaajiShoe.dto.InventoryRq;
-import com.example.GaajiShoe.entity.Inventory;
-import com.example.GaajiShoe.entity.Supplier;
+
 import com.example.GaajiShoe.service.InventoryService;
 import com.example.GaajiShoe.util.FileUploadUtil;
 import com.example.GaajiShoe.util.ResponceUtil;
 import com.example.GaajiShoe.util.exeption.NotFoundException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -120,10 +114,7 @@ public class InventoryController {
     }
 
 
-    @GetMapping("/mostsaleitem")
-    List<InventoryDTO> getMostSaleInvetory() {
-        return inventoryService.getMostSaleItem();
-    }
+
 
     @DeleteMapping
     @PreAuthorize("hasAuthority('ADMIN')")

@@ -63,6 +63,6 @@ public class Inventory {
     private Integer pQuantity;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy =  "inventory")
-    private List<SalesDetails> salesDetails = new ArrayList<>();
+    private List<OrderDetails> salesDetails = new ArrayList<>();
 
 }
